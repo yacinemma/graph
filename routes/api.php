@@ -19,9 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 // Route API Graph 
-Route::get('/', 'GraphController@index');
+Route::get('/index', 'GraphController@index');
 Route::group(['prefix' => 'graphs'], function () {
-    Route::post('store', 'GraphController@AddWishlist');
+    Route::post('/store', 'GraphController@store');
     Route::get('/{id}', 'GraphController@show');
     Route::get('/{id}/edit', 'GraphController@edit');
     Route::get('/{id}/statistics', 'GraphController@statistics');
