@@ -6,11 +6,12 @@
         <input type="text" class="form-control" placeholder="Name" v-model="graph.name">
       </div>
       <div class="form-group">
-        <textarea class="form-control" placeholder="Body" v-model="graph.body"></textarea>
+        <textarea class="form-control" placeholder="Description" v-model="graph.description"></textarea>
       </div>
       <button type="submit" class="btn btn-light btn-block">Save</button>
     </form>
     <button @click="clearForm()" class="btn btn-danger btn-block">Cancel</button>
+    <br>
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchGraphs(pagination.prev_page_url)">Previous</a></li>
@@ -20,12 +21,16 @@
         <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchGraphs(pagination.next_page_url)">Next</a></li>
       </ul>
     </nav>
-    <div class="card card-body mb-2" v-for="graph in graphs" v-bind:key="graph.id">
-      <h3>{{ graph.name }}</h3>
-      <p>{{ graph.description }}</p>
-      <hr>
-      <button @click="editGraph(graph)" class="btn btn-warning mb-2">Edit</button>
-      <button @click="deleteGraph(graph.id)" class="btn btn-danger">Delete</button>
+    <div class="card card-body mb-2 row" style="flex-direction: row;" v-for="graph in graphs" v-bind:key="graph.id">
+      <div class="col-9">
+        <h3>{{ graph.name }}</h3>
+        <p>{{ graph.description }}</p>
+      </div>
+      <div class="col-3">
+        <button @click="editGraph(graph)" style="width: 100px;" class="btn btn-warning"><font-awesome-icon icon="edit" /> Edit</button>
+        <button @click="viewGraph(graph)" style="width: 100px;" class="btn btn-warning"><font-awesome-icon icon="eye" /> View</button>
+        <button @click="deleteGraph(graph.id)" style="width: 100px;" class="btn btn-danger"><font-awesome-icon icon="trash-alt" /> Delete</button>
+      </div>
     </div>
   </div>
 </template>

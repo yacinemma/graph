@@ -20,10 +20,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Route API Graph 
 Route::get('/index', 'GraphController@index');
+
 Route::group(['prefix' => 'graphs'], function () {
     Route::post('/store', 'GraphController@store');
     Route::get('/{id}', 'GraphController@show');
-    Route::get('/{id}/edit', 'GraphController@edit');
+    Route::put('/{id}/edit', 'GraphController@edit');
     Route::get('/{id}/statistics', 'GraphController@statistics');
     Route::delete('/{id}', 'GraphController@destroy');
+});
+
+Route::group(['prefix' => 'nodes'], function () {
+    Route::post('/store', 'NodeController@store');
+    Route::put('/{id}/edit', 'NodeController@edit');
+    Route::delete('/{id}', 'NodeController@destroy');
 });

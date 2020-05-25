@@ -5,23 +5,56 @@
  */
 
 require('./bootstrap');
-
 window.Vue = require('vue');
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import vSelect from 'vue-select'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { 
+    faTrashAlt, faEye, faEdit,faPlus,
+} from '@fortawesome/free-solid-svg-icons';
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import Home from './components/Graphs.vue';
+import Graph from './components/Graph.vue';
+import Statistic from './components/Statistic.vue';
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+library.add(faTrashAlt, faEye, faEdit,faPlus);
 
-Vue.component('navbar', require('./components/Navbar.vue'));
-Vue.component('graphs', require('./components/Graphs.vue'));
+Vue.use(VueRouter);
+
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+Vue.component('navbar', require('./components/Navbar.vue').default);
+Vue.component('graphs', require('./components/Graphs.vue').default);
+Vue.component('app', require('./components/App.vue').default);
+Vue.component('v-select', vSelect)
+
+// Const 
+export const router = new VueRouter({
+	mode: 'hash',
+	routes: [
+		{
+			path: '/',
+			component: Home,
+		},
+		{
+			path: '/graph/:id',
+			prop: true,
+			component: Graph,
+			
+		},
+		{
+			path: '/graph/:id/statistics',
+			prop: true,
+			component: Statistic,
+			
+		},
+	],
+});
+
 
 const app = new Vue({
+  router,
   el: '#app'
 });

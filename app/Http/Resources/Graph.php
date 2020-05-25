@@ -17,9 +17,11 @@ class Graph extends Resource
         // return parent::toArray($request);
 
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description
+            'id'          => $this->id,
+            'name'        => $this->name,
+            'description' => $this->description,
+            'nodes'       => Node::collection($this->whenLoaded('nodes')),
+            'links'       => array(),
         ];
     }
 }
