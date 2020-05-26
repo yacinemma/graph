@@ -12031,9 +12031,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     nodeClick: function nodeClick(event, node) {
       console.log(event, node);
-      alert(node.name);
-      alert(node.id);
-      console.log(node.parents);
       this.editNode(node.id, node.name, node.parents);
     },
     fetchGraph: function fetchGraph(id) {
@@ -12101,6 +12098,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -12219,8 +12218,9 @@ __webpack_require__.r(__webpack_exports__);
           return console.log(err);
         });
       } else {
-        // Update
-        fetch('graphs/' + graph.id + '/edit', {
+        console.log('here'); // Update
+
+        fetch('graphs/' + this.graph.id + '/edit', {
           method: 'put',
           body: JSON.stringify(this.graph),
           headers: {
@@ -12267,6 +12267,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -56561,7 +56569,31 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._m(0),
+    _c(
+      "div",
+      { staticClass: "row" },
+      [
+        _c("div", { staticClass: "col-6" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-4" }),
+        _vm._v(" "),
+        _c(
+          "router-link",
+          {
+            staticClass: "btn btn-light",
+            staticStyle: { width: "100px" },
+            attrs: {
+              to: {
+                name: "statistic-graph",
+                params: { id: this.$route.params.id }
+              }
+            }
+          },
+          [_vm._v("Statistics")]
+        )
+      ],
+      1
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -56712,24 +56744,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-6" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-4" }),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "col-2 btn btn-light", attrs: { type: "submit" } },
-        [_vm._v("Statistics")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -56922,61 +56937,60 @@ var render = function() {
               _c("p", [_vm._v(_vm._s(graph.description))])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-3" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning",
-                  staticStyle: { width: "100px" },
-                  on: {
-                    click: function($event) {
-                      return _vm.editGraph(graph)
+            _c(
+              "div",
+              { staticClass: "col-3" },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-warning",
+                    staticStyle: { width: "100px" },
+                    on: {
+                      click: function($event) {
+                        return _vm.editGraph(graph)
+                      }
                     }
-                  }
-                },
-                [
-                  _c("font-awesome-icon", { attrs: { icon: "edit" } }),
-                  _vm._v(" Edit")
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning",
-                  staticStyle: { width: "100px" },
-                  on: {
-                    click: function($event) {
-                      return _vm.viewGraph(graph)
+                  },
+                  [
+                    _c("font-awesome-icon", { attrs: { icon: "edit" } }),
+                    _vm._v(" Edit")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-warning",
+                    staticStyle: { width: "100px" },
+                    attrs: {
+                      to: { name: "show-graph", params: { id: graph.id } }
                     }
-                  }
-                },
-                [
-                  _c("font-awesome-icon", { attrs: { icon: "eye" } }),
-                  _vm._v(" View")
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger",
-                  staticStyle: { width: "100px" },
-                  on: {
-                    click: function($event) {
-                      return _vm.deleteGraph(graph.id)
+                  },
+                  [_vm._v("View")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    staticStyle: { width: "100px" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteGraph(graph.id)
+                      }
                     }
-                  }
-                },
-                [
-                  _c("font-awesome-icon", { attrs: { icon: "trash-alt" } }),
-                  _vm._v(" Delete")
-                ],
-                1
-              )
-            ])
+                  },
+                  [
+                    _c("font-awesome-icon", { attrs: { icon: "trash-alt" } }),
+                    _vm._v(" Delete")
+                  ],
+                  1
+                )
+              ],
+              1
+            )
           ]
         )
       })
@@ -57006,26 +57020,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "nav",
+    { staticClass: "navbar navbar-expand-sm navbar-dark bg-info mb-2" },
+    [
+      _c(
+        "div",
+        { staticClass: "container" },
+        [
+          _c(
+            "router-link",
+            { staticClass: "navbar-brand", attrs: { to: "/" } },
+            [_vm._v("Graphs")]
+          )
+        ],
+        1
+      )
+    ]
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "nav",
-      { staticClass: "navbar navbar-expand-sm navbar-dark bg-info mb-2" },
-      [
-        _c("div", { staticClass: "container" }, [
-          _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-            _vm._v("Graphs")
-          ])
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -57054,7 +57068,25 @@ var render = function() {
       _c("div", { staticClass: "col-6" }, [
         _c("h3", [
           _vm._v("Statistics graph "),
-          _c("b", [_vm._v(_vm._s(_vm.graph.name))])
+          _c("b", { staticStyle: { color: "red" } }, [
+            _vm._v(_vm._s(_vm.graph.name))
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-5" }, [
+        _c("h4", [
+          _vm._v("created at "),
+          _c("b", [_vm._v(_vm._s(_vm.graph.created_at))])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-5" }, [
+        _c("h4", [
+          _vm._v("updated at "),
+          _c("b", [_vm._v(_vm._s(_vm.graph.updated_at))])
         ])
       ])
     ]),
@@ -71998,10 +72030,12 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/graph/:id',
     prop: true,
+    name: 'show-graph',
     component: _components_Graph_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
     path: '/graph/:id/statistics',
     prop: true,
+    name: 'statistic-graph',
     component: _components_Statistic_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
   }]
 });

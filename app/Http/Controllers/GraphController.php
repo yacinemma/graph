@@ -79,6 +79,18 @@ class GraphController extends Controller
 
     }
 
+    public function edit($id,Request $request)
+    {
+        $graph = Graph::findOrFail($id);
+        $graph->name = $request->input('name');
+        $graph->description = $request->input('description');
+
+        if ($graph->save()) {
+            return new GraphResource($graph);
+        }
+
+    }
+
     public function statistics($id)
     {
         $graph = Graph::findOrFail($id);

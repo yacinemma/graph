@@ -7,7 +7,7 @@
             </div>
             <div class="col-4">
             </div>
-            <button type="submit" class="col-2 btn btn-light">Statistics</button>
+            <router-link :to="{ name: 'statistic-graph', params: { id: this.$route.params.id}}" style="width: 100px;" class="btn btn-light">Statistics</router-link>
         </div>
 
         <div class="row">
@@ -116,9 +116,6 @@ import D3Network from 'vue-d3-network'
         },
         nodeClick(event, node) {
             console.log(event, node);  
-            alert(node.name);
-            alert(node.id);
-            console.log(node.parents)
             this.editNode(node.id,node.name,node.parents)
 
         },
@@ -139,43 +136,43 @@ import D3Network from 'vue-d3-network'
     mounted() {
         this.fetchGraph(this.$route.params.id);
     },
-        components: {
+    components: {
         D3Network
-      },
-  data () {
-    return {
-      nodes: [
-        
-      ],
-      links: [
-        
-      ],
-      nodeSize:20,
-      canvas:false,
-      node: {
-        id: '',
-        graph_id: this.$route.params.id,
-        tooltip: '',
-        parent_id: ''
-      },
-      node_id: '',
-      edit: false
+    },
+    data () {
+        return {
+          nodes: [
+            
+          ],
+          links: [
+            
+          ],
+          nodeSize:20,
+          canvas:false,
+          node: {
+            id: '',
+            graph_id: this.$route.params.id,
+            tooltip: '',
+            parent_id: ''
+          },
+          node_id: '',
+          edit: false
 
+        }
+    },
+    computed:{
+        options(){
+          return{
+            force: 2000,
+            size:{ w:600, h:600},
+            nodeSize: this.nodeSize,
+            nodeLabels: true,
+            linkLabels:false,
+            canvas: this.canvas
+          }
+        }
     }
-  },
-  computed:{
-    options(){
-      return{
-        force: 2000,
-        size:{ w:600, h:600},
-        nodeSize: this.nodeSize,
-        nodeLabels: true,
-        linkLabels:false,
-        canvas: this.canvas
-      }
-    }
-  }
-    }
+}
 </script>
 
 

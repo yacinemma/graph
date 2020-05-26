@@ -4,10 +4,18 @@
 
         <div class="row"><br>
             <div class="col-6">
-              <h3>Statistics graph <b>{{graph.name}}</b></h3>
+              <h3>Statistics graph <b style="color:red;">{{graph.name}}</b></h3>
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-5">
+              <h4>created at <b>{{graph.created_at}}</b></h4>
+            </div>
+            <div class="col-5">
+              <h4>updated at <b>{{graph.updated_at}}</b></h4>
+            </div>
+        </div>
         <div class="row">
             <div class="col-4">
               <h3>Number of nodes <b>{{nodes.length}}</b></h3>

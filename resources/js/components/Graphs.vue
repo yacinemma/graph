@@ -26,9 +26,11 @@
         <h3>{{ graph.name }}</h3>
         <p>{{ graph.description }}</p>
       </div>
-      <div class="col-3">
+      <div class="col-3"> 
         <button @click="editGraph(graph)" style="width: 100px;" class="btn btn-warning"><font-awesome-icon icon="edit" /> Edit</button>
-        <button @click="viewGraph(graph)" style="width: 100px;" class="btn btn-warning"><font-awesome-icon icon="eye" /> View</button>
+        <router-link :to="{ name: 'show-graph', params: { id: graph.id}}" style="width: 100px;" class="btn btn-warning">View</router-link>
+        
+        
         <button @click="deleteGraph(graph.id)" style="width: 100px;" class="btn btn-danger"><font-awesome-icon icon="trash-alt" /> Delete</button>
       </div>
     </div>
@@ -108,8 +110,9 @@ export default {
           })
           .catch(err => console.log(err));
       } else {
+        console.log('here');
         // Update
-        fetch('graphs/' + graph.id + '/edit', {
+        fetch('graphs/' + this.graph.id + '/edit', {
           method: 'put',
           body: JSON.stringify(this.graph),
           headers: {

@@ -41,12 +41,14 @@ export const router = new VueRouter({
 		{
 			path: '/graph/:id',
 			prop: true,
+			name: 'show-graph',
 			component: Graph,
 			
 		},
 		{
 			path: '/graph/:id/statistics',
 			prop: true,
+			name: 'statistic-graph',
 			component: Statistic,
 			
 		},
